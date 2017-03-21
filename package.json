@@ -19,10 +19,11 @@
   },
   "homepage": "https://github.com/Shkurpylo/koa-pig#readme",
   "dependencies": {
+    "find-exec": "^1.0.0",
+    "ivona-node": "^0.4.0",
     "koa": "^2.2.0",
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2",
-    "webpack": "^2.2.1"
+    "koa-body-parser": "^1.1.2",
+    "lodash.debounce": "^4.0.8"
   },
   "devDependencies": {
     "babel-core": "^6.24.0",

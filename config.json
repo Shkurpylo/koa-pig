@@ -1,0 +1,12 @@
+{
+  "credentials": {
+    "accessKey": "GDNAICTDMLSLU5426OAA",
+    "secretKey": "2qUFTF8ZF9wqy7xoGBY+YXLEu+M2Qqalf/pSrd9m"
+  },
+  "voiceConfig": {
+    "name": "Maxim",
+    "language": "ru-RU",
+    "gender": "Male"
+  },
+  "player": "mpg123"
+}
