@@ -1,9 +1,15 @@
-import ivona from './ivona.js';
+import speaker from './speaker.js';
 import player from './player.js';
 import fs from 'fs';
 
 
-export default function say(speach) {
+
+export {getVoicesList} from './voice.js';
+
+
+export function say(speach, name) {
+
+  console.log('name is: ' + name);
 
   const dir = __dirname + '/temp/';
   console.log(dir);
@@ -13,7 +19,7 @@ export default function say(speach) {
   }
 
   return new Promise((resolve, reject) => {
-    ivona(speach, dir + 'temp.mp3')
+    speaker(speach, dir + 'temp.mp3', name)
       .then((path) => {
         player(path);
       })
@@ -26,3 +32,11 @@ export default function say(speach) {
       });
   });
 }
+
+// export function voicesList() {
+//   return voice()
+//   .then(voices => {
+//     console.log(voices);
+//     return voices;})
+//   .catch(err => {return err;});
+// }

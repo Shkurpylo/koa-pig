@@ -22,7 +22,8 @@
     "find-exec": "^1.0.0",
     "ivona-node": "^0.4.0",
     "koa": "^2.2.0",
-    "koa-body-parser": "^1.1.2",
+    "koa-better-body": "^3.0.2",
+    "koa-bodyparser": "^4.2.0",
     "lodash.debounce": "^4.0.8"
   },
   "devDependencies": {
