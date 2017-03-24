@@ -30,7 +30,7 @@ app.use(async(ctx, next) => {
     speach = speach.text;
   }
   fileLogger.log('info', `${speach}`);
-  winston.log('info', `${ctx.method} ${ctx.url} - ${ms}`);
+  winston.log('info', `${ctx.method} ${ctx.url} - ${ms} text - ${speach}`);
 });
 
 app.use(ctx => {
