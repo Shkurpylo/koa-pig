@@ -1,6 +1,7 @@
 import koa from 'koa';
 import body from 'koa-better-body';
 import debounce from 'lodash.debounce';
+import winston from 'winston';
 import {
   say,
   getVoicesList
@@ -15,26 +16,38 @@ app.use(body());
 // logger
 app.use(async(ctx, next) => {
   const start = new Date();
-  await next();
   const ms = new Date() - start;
-  console.log(`${ctx.method} ${ctx.url} - ${ms}`);
+  let fileLogger = new (winston.Logger)({
+    transports: [
+      new (winston.transports.File)({ filename: __dirname + '/logs/' + ctx.request.ip + '.log'})
+    ]
+  });
+  next();
+
+  let speach = ctx.request.body;
+  if (!speach){
+    speach =  ctx.request.files || ctx.request.fields;
+    speach = speach.text;
+  }
+  fileLogger.log('info', `${speach}`);
+  winston.log('info', `${ctx.method} ${ctx.url} - ${ms}`);
 });
 
 app.use(ctx => {
   let url = ctx.request.url;
   if (url === '/say') {
-
+    winston.log(ctx.request.ip + ' send:');
     if (typeof ctx.request.body === 'string') {
       debounceIvona(ctx.request.body);
+      ctx.body = 'Little Piggy say: ' + '"' + ctx.request.body + '" \n';
     } else {
       let body = ctx.request.files || ctx.request.fields;
       let name = body.name;
       let text = body.text;
 
       debounceIvona(text, name);
- 
+      ctx.body = 'Little Piggy ' + name + ' say: ' + '"' + text + '" \n';
     }
-    ctx.body = 'Little Piggy say: ' + '"' + ctx.request.body + '" \n';
   } else if (url === '/voices') {
     return getVoicesList()
       .then(voices => {
@@ -50,7 +63,7 @@ app.use(ctx => {
 
 app.listen(3005, () => {
   debounceIvona('oink oink Ich bin bereit', 'Marlene');
-  console.log('koa server start listening on port 3005');
+  winston.log('koa server start listening on port 3005');
 });
 
 export default app;

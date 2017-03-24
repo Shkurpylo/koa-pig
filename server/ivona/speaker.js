@@ -1,7 +1,5 @@
 import ivona from './ivona.js';
-import {
-  getVoicesList
-} from './voice.js';
+import {  getVoicesList } from './voice.js';
 import fs from 'fs';
 import conf from '../../config.json';
 
@@ -24,13 +22,11 @@ function getVoiceConfig(name) {
     }
 
     if (typeof name === 'string') {
-
       let voiceConfig = {};
 
       getVoicesList()
         .then(voicesObj => {
           voiceConfig = voicesObj.voices.find(voice => {
-            console.log(voice.Name)
             return voice.Name.toLowerCase() === name.toLowerCase();
           });
 
@@ -47,9 +43,6 @@ function getVoiceConfig(name) {
         .catch(err => {
           reject(err);
         });
-
-      console.log('fdvsvdsvds:' + JSON.stringify(voiceConfig))
-
     }
   });
 }
