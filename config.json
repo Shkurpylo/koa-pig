@@ -1,9 +1,4 @@
 {
-  "credentials": {
-    "accessKey": "YOUR_KEY",
-    "secretKey": "YOUR_SECRET",
-    "region": "eu-central-1"
-  },
   "speakerConfig": {
     "defaultVoice": "Maxim",
     "maxQueueLength": 3
