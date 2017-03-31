@@ -1,12 +1,12 @@
 {
   "credentials": {
-    "accessKey": "GDNAICTDMLSLU5426OAA",
-    "secretKey": "2qUFTF8ZF9wqy7xoGBY+YXLEu+M2Qqalf/pSrd9m"
+    "accessKey": "YOUR_KEY",
+    "secretKey": "YOUR_SECRET",
+    "region": "eu-central-1"
   },
-  "voiceConfig": {
-    "name": "Maxim",
-    "language": "ru-RU",
-    "gender": "Male"
+  "speakerConfig": {
+    "defaultVoice": "Maxim",
+    "maxQueueLength": 3
   },
   "player": "mpg123"
 }
