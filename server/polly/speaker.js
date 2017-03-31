@@ -3,23 +3,27 @@ import fs from 'fs';
 import child_process from 'child_process';
 import path from 'path';
 import conf from '../../config.json';
-import names from './lists/names.json';
+import voices from './lists/voices.json';
 
 const PATH = getPath().toString();
-const namesList = names.namesList;
+const voicesList = voices.voicesList;
 
 let textPromises = [];
 
 export function addToQueue(text, name) {
 
-  let voiceId = name || conf.speakerConfig.defaultVoice;
+  let speakerName = name || conf.speakerConfig.defaultVoice;
   let maxQueueLength = conf.speakerConfig.maxQueueLength || 3;
 
   return new Promise((resolve, reject) => {
     if (textPromises.length >= maxQueueLength) {
       return reject('queue is overflow');
     }
-    if (!checkName(voiceId)) {
+
+    let voiceId = getVoiceId(speakerName);
+
+
+    if (!getVoiceId(voiceId)) {
       return reject('wrong name');
     }
 
@@ -94,10 +98,11 @@ function getPath() {
   return dir + 'temp.mp3';
 }
 
-function checkName(name) {
+function getVoiceId(name) {
+
   function comparator(element) {
-    return element.toLowerCase() === name.toLowerCase();
+    return element.toLowerCase() === name.toLowerCase().trim();
   }
 
-  return typeof namesList.find(comparator) === 'string';
+  return voicesList.find(comparator);
 }
