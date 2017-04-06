@@ -1,10 +1,14 @@
 {
   "presets": [
-    ["env", {
-      "targets": {
-        "node": true
+    [
+      "env",
+      {
+        "targets": {
+          "node": true
+        }
       }
-    }]
+    ],
+    "react"
   ],
   "plugins": [
     "transform-async-to-generator"

@@ -1,31 +1,68 @@
-var debug = process.env.NODE_ENV !== "production";
-var webpack = require('webpack');
-var path = require('path');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var path = require("path");
 
 module.exports = {
-  context: path.join(__dirname, "src"),
-  devtool: debug ? "inline-sourcemap" : null,
-  entry: "./js/client.js",
+  entry: './src/app.js',
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: 'app.bundle.js'
+  },
   module: {
-    loaders: [
+    rules: [
       {
-        test: /\.jsx?$/,
-        exclude: /(node_modules|bower_components)/,
-        loader: 'babel-loader',
-        query: {
-          presets: ['react', 'es2015', 'stage-0'],
-          plugins: ['react-html-attrs', 'transform-decorators-legacy', 'transform-class-properties'],
-        }
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            'css-loader', 'sass-loader'
+          ],
+          publicPath: '/dist'
+        })
+      },
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            'css-loader'
+          ],
+          publicPath: '/dist'
+        })
+      },
+      {
+        test: /\.svg$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'svg-loader',
+          use: [
+            'svg-loader'
+          ],
+          publicPath: '/dist'
+        })
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader'
       }
     ]
   },
-  output: {
-    path: __dirname + "/static/dist",
-    filename: "client.min.js"
+  devServer: {
+    contentBase: path.join(__dirname, "dist"),
+    compress: true,
+    stats: "normal",
+    open: true
   },
-  plugins: debug ? [] : [
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
-  ],
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'piggy',
+      hash: true,
+      template: './src/index.html', // Load a custom template (ejs by default see the FAQ for details)
+    }),
+    new ExtractTextPlugin({
+      filename: 'app.css',
+      disable: false,
+      allChunks: true
+    })
+  ]
 };
