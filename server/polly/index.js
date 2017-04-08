@@ -1,2 +1,2 @@
-export {getVoicesList} from './voice.js';
+export {getVoicesList, getSpeakersNameList, getUniqLanguagesList} from './voice.js';
 export {addToQueue} from './speaker.js';

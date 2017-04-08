@@ -1,7 +1,10 @@
 {
+  "apiHost": "localhost",
+  "apiPort": 3005,
   "speakerConfig": {
     "defaultVoice": "Maxim",
     "maxQueueLength": 3
   },
   "player": "mpg123"
+
 }

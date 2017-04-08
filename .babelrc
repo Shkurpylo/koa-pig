@@ -11,6 +11,9 @@
     "react"
   ],
   "plugins": [
-    "transform-async-to-generator"
+    "transform-async-to-generator",
+    "transform-object-rest-spread",
+    "transform-decorators-legacy",
+    "transform-class-properties"
   ]
 }

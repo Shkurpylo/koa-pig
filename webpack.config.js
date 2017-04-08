@@ -9,43 +9,49 @@ module.exports = {
     filename: 'app.bundle.js'
   },
   module: {
-    rules: [
-      {
-        test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            'css-loader', 'sass-loader'
-          ],
-          publicPath: '/dist'
-        })
-      },
-      {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            'css-loader'
-          ],
-          publicPath: '/dist'
-        })
-      },
-      {
-        test: /\.svg$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'svg-loader',
-          use: [
-            'svg-loader'
-          ],
-          publicPath: '/dist'
-        })
-      },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader'
-      }
-    ]
+    rules: [{
+      test: /\.scss$/,
+      use: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: [
+          'css-loader', 'sass-loader'
+        ],
+        publicPath: '/dist'
+      })
+    },
+    {
+      test: /\.css$/,
+      use: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: [
+          'css-loader'
+        ],
+        publicPath: '/dist'
+      })
+    },
+    // {
+    //   test: /\.css$/,
+    //   loader: 'css-loader',
+    //   query: {
+    //     modules: true,
+    //     localIdentName: '[name]__[local]___[hash:base64:5]'
+    //   }
+    // },
+    {
+      test: /\.svg$/,
+      use: ExtractTextPlugin.extract({
+        fallback: 'svg-loader',
+        use: [
+          'svg-loader'
+        ],
+        publicPath: '/dist'
+      })
+    },
+    {
+      test: /\.js$/,
+      exclude: /node_modules/,
+      loader: 'babel-loader'
+    }]
   },
   devServer: {
     contentBase: path.join(__dirname, "dist"),
