@@ -4,7 +4,7 @@ import MdMoreVert from 'react-icons/lib/md/more-vert';
 
 export default class AppBar extends Component {
   render() {
-    const styles = require('./AppBar.scss');
+    const styles = require('./AppBar.css');
     return (
       <div className="app_bar">
         <div className="logo">

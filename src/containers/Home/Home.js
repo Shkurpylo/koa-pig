@@ -9,7 +9,7 @@ import 'react-select/dist/react-select.css';
 
 const Select = require('react-select');
 
-import './Home.scss';
+import './Home.css';
 
 const TextInput = belle.TextInput;
 const Button = belle.Button;

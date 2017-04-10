@@ -17,15 +17,23 @@
 .name-dropbox {
   flex-grow: 1;
   padding: 10px;
-  
-  .Select-control {
-    border: 0;
-    border-radius: 0;
-    border-bottom: 1px solid #ccc;
-  }
-  .is-focused {
-    border: none;
-    }
+}
+
+.name-dropbox .Select-control {
+  border: 0;
+  border-radius: 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.lang-dropbox .Select-control {
+  border: 0;
+  border-radius: 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.lang-dropbox .is-focused,
+.name-dropbox .is-focused {
+  border: none;
 }
 
 .text-field-container {
