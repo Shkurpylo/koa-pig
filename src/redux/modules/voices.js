@@ -83,7 +83,6 @@ export function getLanguages() {
 }
 
 export function getAllSpeakers() {
-  console.log('in getSpeakers:');
   return {
     types: [SPEAKERS_LOAD, SPEAKERS_LOAD_SUCCESS, SPEAKERS_LOAD_FAIL],
     promise: (client) => client.get('/speakers')
@@ -91,7 +90,6 @@ export function getAllSpeakers() {
 }
 
 export function getSpeakersByLang(langCode) {
-  console.log('in getSpeakersByLang: ' + langCode);
   let languageCode = langCode || '';
   return {
     types: [SPEAKERS_LOAD, SPEAKERS_LOAD_SUCCESS, SPEAKERS_LOAD_FAIL],

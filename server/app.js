@@ -85,10 +85,6 @@ router
       });
   })
   .get('/speakers/:id', ctx => {
-    console.log('speakers by lang server');
-
-    console.log(ctx.params.id);
-
     return getSpeakersNameList(ctx.params.id)
       .then(voices => {
         ctx.body = voices;

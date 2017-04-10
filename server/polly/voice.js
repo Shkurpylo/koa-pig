@@ -25,7 +25,6 @@ export function getUniqLanguagesList() {
 }
 
 export function getSpeakersNameList(langCode) {
-  console.log('ON SRVERT' + langCode);
   let options = langCode ? {'LanguageCode': langCode} : '';
   return Polly.describeVoices(options).promise()
     .then((voiceList) => {

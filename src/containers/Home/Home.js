@@ -4,6 +4,7 @@ import { asyncConnect } from 'redux-async-connect';
 import {isLoaded, getLanguages, getAllSpeakers, getSpeakersByLang, sendSpeach} from '../../redux/modules/voices';
 import * as actions from '../../redux/modules/voices';
 import belle from 'belle';
+// import Alert from 'react-s-alert';
 import 'react-select/dist/react-select.css';
 
 const Select = require('react-select');
@@ -72,7 +73,7 @@ export class Home extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    // alert(JSON.stringify(e.value));
+
     this.props.sendSpeach({
       text: this.state.text,
       speaker: this.state.speaker ? this.state.speaker.value : ''
