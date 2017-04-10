@@ -91,11 +91,11 @@ export function getAllSpeakers() {
 }
 
 export function getSpeakersByLang(langCode) {
+  console.log('in getSpeakersByLang: ' + langCode);
   let languageCode = langCode || '';
-  console.log('in getSpeakers: ' + languageCode);
   return {
     types: [SPEAKERS_LOAD, SPEAKERS_LOAD_SUCCESS, SPEAKERS_LOAD_FAIL],
-    promise: (client) => client.get('/speakers/' + langCode)
+    promise: (client) => client.get('/speakers/'+ languageCode )
   };
 }
 

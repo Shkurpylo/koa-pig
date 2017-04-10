@@ -11,7 +11,7 @@ function formatUrl(path) {
 
 export default class ApiClient {
   constructor(req) {
-    console.log('REQ is: ' +  req)
+    console.log('REQ is: ' +  req);
     methods.forEach((method) =>
       this[method] = (path, {
         params,
@@ -19,11 +19,7 @@ export default class ApiClient {
       } = {}) => new Promise((resolve, reject) => {
         const request = superagent[method](formatUrl(path));
 
-        console.log(path);
-        console.log(request);
-
         if (params) {
-          console.log('available params: ' + params);
           request.query(params);
         }
 
@@ -34,7 +30,7 @@ export default class ApiClient {
 
         if (data) {
           console.log('available data ' + data);
-          request.query(data);
+          request.send(data);
         }
 
         request.end((err, {body} = {}) => { console.log(err); err ? reject(body || err) : resolve(body)});

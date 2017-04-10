@@ -4,12 +4,13 @@ import { asyncConnect } from 'redux-async-connect';
 import {isLoaded, getLanguages, getAllSpeakers, getSpeakersByLang, sendSpeach} from '../../redux/modules/voices';
 import * as actions from '../../redux/modules/voices';
 import belle from 'belle';
+import 'react-select/dist/react-select.css';
+
+const Select = require('react-select');
 
 import './Home.scss';
 
 const TextInput = belle.TextInput;
-const ComboBox = belle.ComboBox;
-const Option = belle.Option;
 const Button = belle.Button;
 
 @asyncConnect([{
@@ -19,14 +20,6 @@ const Button = belle.Button;
       return dispatch(getLanguages());
     }
   }
-},
-{
-  deferred: false,
-  promise: ({ store: { dispatch, getState } }) => {
-    if (!isLoaded(getState())) {
-      return dispatch(getAllSpeakers());
-    }
-  }
 }])
 @connect(
   state => ({
@@ -34,8 +27,6 @@ const Button = belle.Button;
     languagesOnLoad: state.voices.languagesOnLoad,
     speakers: state.voices.speakers,
     speakersOnLoads: state.voices.speakersOnLoads,
-    getAllSpeakers: state.voices.getAllSpeakers,
-    getSpeakersByLang: state.voices.getSpeakersByLang
   }), {...actions})
 export class Home extends Component {
   static propTypes = {
@@ -46,7 +37,6 @@ export class Home extends Component {
     getAllSpeakers: PropTypes.func,
     getSpeakersByLang: PropTypes.func
   };
-
 
   componentWillMount() {
     this.props.getAllSpeakers();
@@ -59,9 +49,34 @@ export class Home extends Component {
     this.setState({text: newValue});
   }
 
+  onLanguageSet = (option) => {
+    console.log(option);
+    this.setState({
+      lang: option
+    });
+    option ? this.props.getSpeakersByLang(option.value) : this.props.getAllSpeakers();
+    this.setState({
+      speaker: {}
+    });
+  }
+
+  onSpeakerSet = (option) => {
+    this.setState({
+      speaker: option
+    });
+  }
+
+  loadSpeakersByLang = () => {
+    getSpeakersByLang(this.state.lang.toString());
+  }
+
   onSubmit = (e) => {
     e.preventDefault();
-    alert('it works!');
+    // alert(JSON.stringify(e.value));
+    this.props.sendSpeach({
+      text: this.state.text,
+      speaker: this.state.speaker ? this.state.speaker.value : ''
+    });
   }
 
   render() {
@@ -83,47 +98,21 @@ export class Home extends Component {
         <div className="input-form">
           <div className="voice-options">
             <div className="lang-dropbox">
-              {
-              <ComboBox menuStyle = {{maxHeight: 300, overflowY: 'scroll'}} 
-                        displayCaret={true}
-                        placeholder="Choose a language"
-                        onUpdate={ (event) => {
-                          console.log(JSON.stringify(event));
-                          event.isOptionSelection && event.identifier && getSpeakersByLang(event.identifier.toString());
-                        }}
-                        >
-                {
-                  languages.length && languages.map((language, index) => {
-                    return (<Option key={index}
-                                    identifier={language.code}
-                                    value={language.name}>
-                                    {language.name}
-                            </Option>);
-                  })
-                }
-              </ComboBox>
-              }
+              <Select
+                placeholder="select language"
+                options={languages.map((lang)=> {return({value: lang.code, label: lang.name});})}
+                value={this.state.lang}
+                onChange={this.onLanguageSet}
+              />
             </div>
             <div className="name-dropbox">
-              <ComboBox menuStyle = {{maxHeight: 300, overflowY: 'scroll'}} 
-                        displayCaret={true}
-                        disabled={ this.props.speakers.length < 1 }
-                        placeholder="Choose a speaker"
-                        onUpdate={ (event) => {
-                          console.log(JSON.stringify(event));
-                          event.isOptionSelection && getSpeakers(event.identifier.toString());
-                        }}
-                        >
-                {
-                  speakers.length && speakers.map((speaker, index) => {
-                    return (<Option key={index}
-                                    identifier={speaker.id}
-                                    value={speaker.name}>
-                                    {speaker.name}
-                            </Option>);
-                  })
-                }
-              </ComboBox>
+              <Select
+                placeholder="select speaker"
+                options={speakers.map((speaker)=> {return({value: speaker.id, label: speaker.name});})}
+                value={this.state.speaker}
+                isLoading={speakersOnLoads}
+                onChange={this.onSpeakerSet}
+              />
             </div>
           </div>
           <div className="text-field-container">

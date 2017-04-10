@@ -16,9 +16,7 @@ export function getUniqLanguagesList() {
       let voices = voiceList.Voices.map((voice) => {
         return {name: voice.LanguageName, code: voice.LanguageCode};
       });
-      let uniqueLanguages = voices.filter((value, index, self) => {
-        return self.indexOf(value) === index;
-      });
+      let uniqueLanguages = voices.filter((thing, index, self) => self.findIndex((t) => {return t.name === thing.name && t.code === thing.code; }) === index);
       return uniqueLanguages;
     })
     .catch((err) => {

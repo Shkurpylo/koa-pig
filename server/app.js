@@ -84,8 +84,12 @@ router
         ctx.body = err;
       });
   })
-  .get('/speakers/', ctx => {
-    return getSpeakersNameList()
+  .get('/speakers/:id', ctx => {
+    console.log('speakers by lang server');
+
+    console.log(ctx.params.id);
+
+    return getSpeakersNameList(ctx.params.id)
       .then(voices => {
         ctx.body = voices;
       })
@@ -93,11 +97,8 @@ router
         ctx.body = err;
       });
   })
-  .get('/speakers/:id', ctx => {
-
-    console.log(ctx.params.id);
-
-    return getSpeakersNameList(ctx.params.id)
+  .get('/speakers', ctx => {
+    return getSpeakersNameList()
       .then(voices => {
         ctx.body = voices;
       })
