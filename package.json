@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "concurrently --kill-others \"npm run api\" \"npm run start-dev\"",
+    "deamon": "pm2 start npm -- run dev",
     "api": "node -r babel-register server/app.js",
     "start-dev": "webpack-dev-server --port 3000 --hot --host 0.0.0.0 --watch"
   },
