@@ -1,7 +1,6 @@
 import koa from 'koa';
 import koarouter from 'koa-router';
 import body from 'koa-better-body';
-import winston from 'winston';
 import cors from 'kcors';
 import {
   addToQueue,
@@ -88,7 +87,7 @@ router
 
 app.listen(3005, () => {
   addToQueue('月に代わって、お仕置きよ!', 'Mizuki');
-  winston.log('koa server start listening on port 3005');
+  winstonLog('koa server start listening on port 3005');
 });
 
 export default app;

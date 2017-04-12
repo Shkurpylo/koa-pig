@@ -1,5 +1,5 @@
 # koa-pig
-koa-pig is JavaScript application, that lets you to synthesize voice from text.
+koa-pig is JavaScript application, that let you to synthesize voice from text.
 Based on Amazon [Polly][awspolly]. Developed to run on ARM processors systems, also can be run on linux.
 
 
@@ -42,12 +42,12 @@ set your Amazon [accessKeyId and secretAccessKey][awscredentials] in aws_config.
 
 ## Usage
 
-for 
+for run application:
 
 ```
 $ npm run dev 
 ```
-for run program in background:
+for run application in background:
 ```
 $ npm run deamon 
 ```
