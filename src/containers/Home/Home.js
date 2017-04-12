@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { asyncConnect } from 'redux-async-connect';
-import {isLoaded, getLanguages, getAllSpeakers, getSpeakersByLang, sendSpeach} from '../../redux/modules/voices';
+import {isLoaded, getLanguages} from '../../redux/modules/voices';
 import * as actions from '../../redux/modules/voices';
 import belle from 'belle';
 // import Alert from 'react-s-alert';
@@ -51,7 +51,6 @@ export class Home extends Component {
   }
 
   onLanguageSet = (option) => {
-    console.log(option);
     this.setState({
       lang: option
     });

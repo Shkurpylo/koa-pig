@@ -9,6 +9,7 @@ import {
   getUniqLanguagesList,
   getSpeakersNameList
 } from './polly';
+import {winstonLog, fileLog} from './helpers/logger.js';
 
 const app = new koa();
 const router = new koarouter();
@@ -16,44 +17,27 @@ const router = new koarouter();
 app
   .use(body())
   .use(cors())
+  .use(async (ctx, next) => {
+    // x-response-time
+    const start = new Date();
+    await next();
+    const ms = new Date() - start;
+    ctx.set('X-Response-Time', `${ms}ms`);
+  })
+  .use(async (ctx, next) => {
+    // logger
+    winstonLog(ctx);
+    fileLog(ctx);
+    await next();
+  })
   .use(router.routes())
   .use(router.allowedMethods());
 
-// logger
-app.use(async(ctx, next) => {
-  const start = new Date();
-  const ms = new Date() - start;
-  let fileLogger = new(winston.Logger)({
-    transports: [
-      new(winston.transports.File)({
-        filename: __dirname + '/logs/' + ctx.request.ip + '.log'
-      })
-    ]
-  });
-
-  let speach = ctx.request.body;
-  if (!speach) {
-    speach = ctx.request.files || ctx.request.fields;
-    speach = speach ? speach.text : '';
-  }
-  fileLogger.log('info', `${speach}`);
-  winston.log('info', `${ctx.method} ${ctx.url} - ${ms} text - ${speach}`);
-  return next();
-});
-
 router
   .post('/say', ctx => {
-    winston.log(ctx.request.ip + ' send:');
-    let text = '';
-    let name = '';
-
-    if (typeof ctx.request.body === 'string' && ctx.request.body.length > 0) {
-      text = ctx.body;
-    } else {
-      let body = ctx.request.files || ctx.request.fields;
-      name = body.name || '';
-      text = body.text || '';
-    }
+    let body = ctx.request.files || ctx.request.fields;
+    let name = body.name || '';
+    let text = body.text || '';
 
     if (text.length > 0) {
       addToQueue(text, name)
@@ -64,7 +48,6 @@ router
     } else {
       ctx.body = 'text is empty';
     }
-
   })
   .get('/voices', ctx => {
     return getVoicesList()

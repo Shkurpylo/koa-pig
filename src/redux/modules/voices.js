@@ -24,7 +24,6 @@ export default function reducer(state = initialState, action = {}) {
         languagesOnLoad: true,
       };
     case LANGUAGES_LOAD_SUCCESS:
-      console.log('AXCTION: ' + JSON.stringify(action));
       return {
         ...state,
         languagesOnLoad: false,
@@ -75,7 +74,6 @@ export function isLoaded(globalState) {
 }
 
 export function getLanguages() {
-  console.log('in getlanguages');
   return {
     types: [LANGUAGES_LOAD, LANGUAGES_LOAD_SUCCESS, LANGUAGES_LOAD_FAIL],
     promise: (client) => client.get('/languages')

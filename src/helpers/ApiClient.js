@@ -11,7 +11,6 @@ function formatUrl(path) {
 
 export default class ApiClient {
   constructor(req) {
-    console.log('REQ is: ' +  req);
     methods.forEach((method) =>
       this[method] = (path, {
         params,
@@ -29,7 +28,6 @@ export default class ApiClient {
         // }
 
         if (data) {
-          console.log('available data ' + data);
           request.send(data);
         }
 
