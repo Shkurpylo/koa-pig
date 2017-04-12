@@ -7,8 +7,10 @@ Based on Amazon [Polly][awspolly]. Developed to run on ARM processors systems, a
 
 clone repo:
 
+```
 $ git clone git@github.com:Shkurpylo/koa-pig.git
 $ cd koa-pig
+```
 
 install packages with npm :
 
