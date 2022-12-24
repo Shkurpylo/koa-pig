@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/Shkurpylo/koa-pig#readme",
   "dependencies": {
-    "aws-sdk": "^2.32.0",
+    "aws-sdk": "^2.814.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "belle": "^3.0.1",
     "find-exec": "^1.0.0",
